@@ -23,7 +23,7 @@ public partial class LoginCliente : ContentPage
         {
             await Navigation.PushAsync(new PaginaMensaje("Administrador"));
         }
-        else if (correo == "encargadito@longhorn.com" && contraseña == "taller123")
+        else if (correo == "encargaditoito@longhorn.com" && contraseña == "taller123")
         {
             await Navigation.PushAsync(new PaginaMensaje("Encargado de Taller"));
         }
