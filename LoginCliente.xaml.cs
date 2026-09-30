@@ -23,7 +23,7 @@ public partial class LoginCliente : ContentPage
         {
             await Navigation.PushAsync(new PaginaMensaje("Administrador"));
         }
-        else if (correo == "encargado@longhorn.com" && contraseña == "taller123")
+        else if (correo == "encargadito@longhorn.com" && contraseña == "taller123")
         {
             await Navigation.PushAsync(new PaginaMensaje("Encargado de Taller"));
         }
@@ -36,6 +36,7 @@ public partial class LoginCliente : ContentPage
             // Usuario general ingresa como Cliente
             await Navigation.PushAsync(new PaginaMensaje("Cliente"));
         }
+        
     }
 
     private async void OnContinuarGoogleClicked(object sender, EventArgs e)
