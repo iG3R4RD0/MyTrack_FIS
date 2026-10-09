@@ -9,7 +9,7 @@ namespace AppNueva.PostgreConect
 {
     internal class Conexion
     {
-        private static string connectionString = "Host=db.gjnmscqzofrafoeuwkta.supabase.co;Port=5432;Database=postgres;Username=postgres;Password=DX6^949r&J$1*s0rq!*2;SSL Mode=Require;Trust Server Certificate=true";
+        private static string connectionString = "Host=db.gjnmscqzofrafoeuwkta.supabase.co;Port=5432;Database=postgres;Username=postgres;Password=William Quiñonez;SSL Mode=Require;Trust Server Certificate=true";
 
         public static NpgsqlConnection GetConnection()
         {
