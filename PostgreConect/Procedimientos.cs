@@ -38,7 +38,7 @@ namespace AppNueva.PostgreConect
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM sp_obtener_usuario_por_id(@id)", conexion);
                 cmd.Parameters.AddWithValue("@id", id);
-
+                
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {

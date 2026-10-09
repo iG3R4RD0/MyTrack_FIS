@@ -28,6 +28,7 @@ namespace AppNueva.PostgreConect
             }
             catch (Exception)
             {
+                int suma = 0;
                 return null;
              
             }
