@@ -1,3 +1,5 @@
+using AppNueva.PostgreConect;
+
 namespace AppNueva;
 
 public partial class LoginCliente : ContentPage
@@ -18,25 +20,30 @@ public partial class LoginCliente : ContentPage
             return;
         }
 
-        // Detección automática por credenciales de personal interno
-        if (correo == "admin@longhorn.com" && contraseña == "admin123")
+        Usuario usuario = Procedimientos.GetUserPas(correo);
+        //Recordar implementar BCrypt para la contraseña en el futuro
+        if (usuario.Password == contraseña)
         {
-            await Navigation.PushAsync(new PaginaMensaje("Administrador"));
+            Usuario usuarioA = Procedimientos.GetUserID(usuario.UsuarioID);
+
+            // Detección automática por credenciales de personal interno
+            if (usuarioA.Tipo == "ADMIN")
+            {
+                await Navigation.PushAsync(new PaginaMensaje("Administrador"));
+            }
+            if (usuarioA.Tipo == "TALLER")
+            {
+                await Navigation.PushAsync(new PaginaMensaje("Encargado de Taller"));
+            }
+            if (usuarioA.Tipo == "EMPLEADO")
+            {
+                await Navigation.PushAsync(new PaginaMensaje("Empleado"));
+            }
+            if (usuarioA.Tipo == "CLIENTE")
+            {
+                await Navigation.PushAsync(new PaginaMensaje("Cliente"));
+            }
         }
-        else if (correo == "encargaditoito@longhorn.com" && contraseña == "taller123")
-        {
-            await Navigation.PushAsync(new PaginaMensaje("Encargado de Taller"));
-        }
-        else if (correo == "empleado@longhorn.com" && contraseña == "emp123")
-        {
-            await Navigation.PushAsync(new PaginaMensaje("Empleado"));
-        }
-        else
-        {
-            // Usuario general ingresa como Cliente
-            await Navigation.PushAsync(new PaginaMensaje("Cliente"));
-        }
-        
     }
 
     private async void OnContinuarGoogleClicked(object sender, EventArgs e)
