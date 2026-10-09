@@ -34,6 +34,7 @@ namespace AppNueva.PostgreConect
 
         public static Usuario GetUserID(int id)
         {
+            //Get User by ID
             using (NpgsqlConnection conexion = Conexion.GetConnection())
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM sp_obtener_usuario_por_id(@id)", conexion);
