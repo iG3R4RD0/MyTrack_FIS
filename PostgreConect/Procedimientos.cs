@@ -49,8 +49,8 @@ namespace AppNueva.PostgreConect
                         Telefono = reader.GetString(2),
                         Correo = reader.GetString(3),
                         Password = string.Empty,
-                        Tipo = reader.GetString(5),
-                        Estatus = reader.GetBoolean(6)
+                        Tipo = reader.GetString(4),
+                        Estatus = reader.GetBoolean(5)
                     };
 
                     return usuario;

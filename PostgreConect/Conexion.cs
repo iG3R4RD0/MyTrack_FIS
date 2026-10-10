@@ -9,20 +9,29 @@ namespace AppNueva.PostgreConect
 {
     internal class Conexion
     {
-        private static string connectionString = "Host=db.gjnmscqzofrafoeuwkta.supabase.co;Port=5432;Database=postgres;Username=postgres;Password=DX6^949r&J$1*s0rq!*2;SSL Mode=Require;Trust Server Certificate=true";
-
+        private static readonly string connectionString =
+            "Host=db.gjnmscqzofrafoeuwkta.supabase.co;" +
+            "Port=5432;" +
+            "Database=postgres;" +
+            "Username=postgres;" +
+            "Password=Willy Quiñonez;" +
+            "SSL Mode=Require;" +
+            "Trust Server Certificate=true";
+        //conexion cambiada
         public static NpgsqlConnection GetConnection()
         {
-            try 
+            try
             {
-                NpgsqlConnection connection = new NpgsqlConnection(connectionString);
+                var connection = new NpgsqlConnection(connectionString);
                 connection.Open();
                 return connection;
             }
             catch (Exception ex)
-            {
+            { //Ala
                 return null;
+             
             }
         }
     }
+     
 }
