@@ -46,6 +46,11 @@ public partial class LoginCliente : ContentPage
         }
     }
 
+    private async void OnRegistrarseClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new RegistroCliente());
+    }
+
     private async void OnContinuarGoogleClicked(object sender, EventArgs e)
     {
         await DisplayAlert("Google Auth", "Iniciando sesión con Google...", "OK");

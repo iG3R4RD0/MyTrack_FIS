@@ -17,7 +17,7 @@ namespace AppNueva.PostgreConect
                 cmd.Parameters.AddWithValue("@correo", correo);
 
                 NpgsqlDataReader reader = cmd.ExecuteReader();
-                if(reader.Read())
+                if (reader.Read())
                 {
                     Usuario usuario = new Usuario
                     {
@@ -38,7 +38,7 @@ namespace AppNueva.PostgreConect
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM sp_obtener_usuario_por_id(@id)", conexion);
                 cmd.Parameters.AddWithValue("@id", id);
-                
+
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
@@ -57,6 +57,29 @@ namespace AppNueva.PostgreConect
                 }
                 else
                     return null;
+            }
+        }
+
+        public static int InsertarUsuario(Usuario usuario)
+        {
+            using (NpgsqlConnection conexion = Conexion.GetConnection())
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM registar_cliente(@nombre, @telefono, @correo, @password)", conexion);
+                cmd.Parameters.AddWithValue("@nombre", usuario.Nombre);
+                cmd.Parameters.AddWithValue("@telefono", usuario.Telefono);
+                cmd.Parameters.AddWithValue("@correo", usuario.Correo);
+                cmd.Parameters.AddWithValue("@password", usuario.Password);
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    return reader.GetInt32(0); // Devuelve el ID del usuario insertado
+                }
+                else
+                {
+                    throw new Exception("Error al crear el usuario.");
+                }
             }
         }
     }
