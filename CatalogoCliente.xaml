@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:local="clr-namespace:AppNueva"
+             x:Class="AppNueva.CatalogoCliente"
+             BackgroundColor="White"
+             Shell.NavBarIsVisible="False">
+    
+    <Grid RowDefinitions="Auto,*,Auto">
+        <!-- 1. FILTROS SUPERIORES -->
+        <ScrollView Grid.Row="0" Orientation="Horizontal" HorizontalScrollBarVisibility="Never" Padding="15,10">
+            <HorizontalStackLayout Spacing="10">
+                <Button Text="Camiones disponibles" BackgroundColor="Black" TextColor="White" CornerRadius="20" HeightRequest="38" Padding="15,0"/>
+                <Button Text="Completos" BackgroundColor="White" TextColor="Black" BorderColor="#CCCCCC" BorderWidth="1" CornerRadius="20" HeightRequest="38" Padding="15,0"/>
+                <Button Text="Pendientes" BackgroundColor="White" TextColor="Black" BorderColor="#CCCCCC" BorderWidth="1" CornerRadius="20" HeightRequest="38" Padding="15,0"/>
+            </HorizontalStackLayout>
+        </ScrollView>
+
+        <!-- 2. CATÁLOGO DE CAMIONES (Grid 3 columnas) -->
+        <ScrollView Grid.Row="1">
+            <CollectionView x:Name="CvCamiones" Margin="8,0">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="3" HorizontalItemSpacing="6" VerticalItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="local:Camion">
+                        <Border StrokeShape="RoundRectangle 8" Stroke="#CCCCCC" BackgroundColor="White" Padding="0">
+                            <VerticalStackLayout Spacing="3">
+                                <!-- Encabezado de la Tarjeta -->
+                                <Border BackgroundColor="#1E1E1E" StrokeShape="RoundRectangle 8,8,0,0" Padding="4">
+                                    <Label Text="{Binding Nombre}" TextColor="White" FontSize="10" FontAttributes="Bold" HorizontalOptions="Center" MaxLines="1" LineBreakMode="TailTruncation"/>
+                                </Border>
+
+                                <!-- Imagen del Camión -->
+                                <Image Source="{Binding Imagen}" HeightRequest="60" Aspect="AspectFit" Margin="2,4"/>
+
+                                <!-- Especificaciones Técnicas -->
+                                <Label Text="{Binding Especificaciones}" FontSize="7.5" TextColor="#333333" Padding="4,0"/>
+
+                                <!-- Sección Ideal Para -->
+                                <Label Text="Ideal para:" FontSize="7.5" FontAttributes="Bold" TextColor="Black" Padding="4,2,4,0"/>
+                                <Label Text="{Binding IdealPara}" FontSize="7" TextColor="#555555" Padding="4,0,4,4"/>
+
+                                <!-- Botón verde Accional -->
+                                <Button Text="Solicitar Cotización" 
+                                        BackgroundColor="#28A745" 
+                                        TextColor="White" 
+                                        FontSize="8" 
+                                        FontAttributes="Bold" 
+                                        HeightRequest="26" 
+                                        CornerRadius="4" 
+                                        Margin="4,2,4,6" 
+                                        Padding="0"
+                                        Clicked="OnSolicitarCotizacionClicked"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+
+        <!-- 3. BARRA INFERIOR (TAB BAR) -->
+        <Border Grid.Row="2" BackgroundColor="White" Stroke="#E0E0E0" StrokeShape="Rectangle" Padding="0,8">
+            <Grid ColumnDefinitions="*,*,*,*,*">
+                <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="2">
+                    <Label Text="🏠" FontSize="16" HorizontalOptions="Center"/>
+                    <Label Text="Catálogo" FontSize="9" TextColor="Black" HorizontalOptions="Center" FontAttributes="Bold"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="2">
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnIrAChatClicked"/>
+                    </VerticalStackLayout.GestureRecognizers>
+                    <Label Text="💬" FontSize="16" HorizontalOptions="Center"/>
+                    <Label Text="Chat" FontSize="9" TextColor="Gray" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="2">
+                    <Label Text="📍" FontSize="16" HorizontalOptions="Center"/>
+                    <Label Text="Seguimiento" FontSize="9" TextColor="Gray" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="3" HorizontalOptions="Center" Spacing="2">
+                    <Label Text="🛍️" FontSize="16" HorizontalOptions="Center"/>
+                    <Label Text="Pedidos" FontSize="9" TextColor="Gray" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="4" HorizontalOptions="Center" Spacing="2">
+                    <Label Text="👤" FontSize="16" HorizontalOptions="Center"/>
+                    <Label Text="Cuenta" FontSize="9" TextColor="Gray" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>
