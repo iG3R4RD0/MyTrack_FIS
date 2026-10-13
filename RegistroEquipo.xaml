@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppNueva.RegistroEquipo"
+             BackgroundColor="White">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30,20" Spacing="12" HorizontalOptions="Fill">
+
+            <Label Text="Alta de Maquinaria o Vehículo" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" TextColor="Black"/>
+            <Label Text="Ingresa las especificaciones técnicas del equipo" HorizontalOptions="Center" TextColor="#555555" FontSize="13"/>
+
+            <!-- Seccion de la imagen -->
+            <Border Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="160" Margin="0,5">
+                <Grid>
+                    <Image x:Name="imgEquipo" Aspect="AspectFill" HeightRequest="160" HorizontalOptions="Fill"/>
+                    <Label x:Name="lblPlaceholderImagen" Text="📷 Toca para agregar una imagen" 
+                           HorizontalOptions="Center" VerticalOptions="Center" TextColor="Gray" FontSize="13"/>
+                    <Button BackgroundColor="Transparent" Clicked="SeleccionarImagen"/>
+                </Grid>
+            </Border>
+
+            <!-- Nombre del equipo -->
+            <Entry x:Name="txtNombreEquipo" Placeholder="Nombre / Modelo del equipo" TextColor="Black" HeightRequest="45"/>
+
+            <!-- Tipo de equipo -->
+            <Border Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="45" Padding="10,0">
+                <Picker x:Name="pkrTipoEquipo" Title="Selecciona el tipo de equipo" TextColor="Black" TitleColor="Gray" VerticalOptions="Center">
+                    <Picker.Items>
+                        <x:String>Excavadora</x:String>
+                        <x:String>Camión</x:String>
+                        <x:String>Plataforma</x:String>
+                        <x:String>Tráiler</x:String>
+                        <x:String>Retroexcavadora</x:String>
+                        <x:String>Compactadora</x:String>
+                        <x:String>Otro</x:String>
+                    </Picker.Items>
+                </Picker>
+            </Border>
+
+            <!-- Carga max / Capacidad -->
+            <Entry x:Name="txtCarga" Placeholder="Capacidad de carga (ej. 15 Toneladas)" TextColor="Black" HeightRequest="45"/>
+
+            <!-- Uso asignado -->
+            <Editor x:Name="txtUso" Placeholder="Uso o aplicación del equipo (ej. Transporte de material pesado, excavación minera...)" 
+                    TextColor="Black" HeightRequest="80" AutoSize="Disabled"/>
+
+            <!-- boton para Guardar -->
+            <Button Text="Guardar Equipo" Clicked="GuardarEquipo" BackgroundColor="#1E1E1E" TextColor="White" CornerRadius="8" HeightRequest="45" Margin="0,10,0,0"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
