@@ -33,7 +33,7 @@ public partial class LoginCliente : ContentPage
             }
             if (usuarioA.Tipo == "TALLER")
             {
-                await Navigation.PushAsync(new PaginaMensaje("Encargado de Taller"));
+                await Navigation.PushAsync(new RegistroEquipo());
             }
             if (usuarioA.Tipo == "EMPLEADO")
             {
@@ -41,9 +41,14 @@ public partial class LoginCliente : ContentPage
             }
             if (usuarioA.Tipo == "CLIENTE")
             {
-                await Navigation.PushAsync(new PaginaMensaje("Cliente"));
+                await Navigation.PushAsync(new CatalogoCliente());
             }
         }
+    }
+
+    private async void OnRegistrarseClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new RegistroCliente());
     }
 
     private async void OnContinuarGoogleClicked(object sender, EventArgs e)

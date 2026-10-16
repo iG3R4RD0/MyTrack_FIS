@@ -1,3 +1,5 @@
+using AppNueva.PostgreConect;
+
 namespace AppNueva;
 
 public partial class RegistroEquipo : ContentPage
@@ -33,23 +35,47 @@ public partial class RegistroEquipo : ContentPage
     // Guardar el equipo
     private async void GuardarEquipo (object sender, EventArgs e)
     {
-        // Validaciones obligatorias
-        if (string.IsNullOrWhiteSpace(txtNombreEquipo.Text) ||
-            pkrTipoEquipo.SelectedIndex == -1 ||
-            string.IsNullOrWhiteSpace(txtCarga.Text))
+        try 
         {
-            await DisplayAlert("Error", "Por favor completa el nombre, tipo y capacidad de carga.", "OK");
+            // Validaciones obligatorias
+            if (string.IsNullOrWhiteSpace(txtNombreEquipo.Text) ||
+                pkrTipoEquipo.SelectedIndex == -1 ||
+                string.IsNullOrWhiteSpace(txtCarga.Text))
+            {
+                await DisplayAlert("Error", "Por favor completa el nombre, tipo y capacidad de carga.", "OK");
+                return;
+            }
+
+            string nombre = txtNombreEquipo.Text.Trim();
+            string tipo = pkrTipoEquipo.SelectedItem.ToString();
+            string carga = txtCarga.Text.Trim();
+            string uso = txtUso.Text.Trim() ?? "Sin especificar";
+
+            Equipo nuevo = new Equipo
+            {
+                Nombre = nombre,
+                Tipo = tipo,
+                Carga = int.Parse(carga),
+                Uso = uso
+            };
+
+            int equipoId = Procedimientos.RegistrarEquipo(nuevo);
+            if (equipoId > 0)
+            {
+                await DisplayAlert("Éxito", $"Equipo registrado correctamente:\n\n• Nombre: {nombre}\n• Tipo: {tipo}\n• Carga: {carga}", "OK");
+                await Navigation.PopAsync();
+            }
+            else
+            {
+                await DisplayAlert("Error", "No se pudo registrar el equipo. Intenta nuevamente.", "OK");
+            }
+
+            await Navigation.PopAsync();
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Ocurrió un error al registrar el equipo: {ex.Message}", "OK");
             return;
         }
-
-        string nombre = txtNombreEquipo.Text.Trim();
-        string tipo = pkrTipoEquipo.SelectedItem.ToString();
-        string carga = txtCarga.Text.Trim();
-        string uso = txtUso.Text?.Trim() ?? "Sin especificar";
-
-        //mensaje de confirmacion del equipo
-        await DisplayAlert("Éxito", $"Equipo registrado correctamente:\n\n• Nombre: {nombre}\n• Tipo: {tipo}\n• Carga: {carga}", "OK");
-
-        await Navigation.PopAsync();
     }
 }

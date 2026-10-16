@@ -19,6 +19,14 @@
 
             <Button Text="Continuar" Clicked="ContinuarClienteClicked" BackgroundColor="#1E1E1E" TextColor="White" CornerRadius="8" HeightRequest="45"/>
 
+            <!-- Botón de Registro para Clientes nuevos -->
+            <Button Text="¿No tienes cuenta? Regístrate aquí" 
+                    Clicked="OnRegistrarseClicked" 
+                    BackgroundColor="Transparent" 
+                    TextColor="#1E1E1E" 
+                    FontAttributes="Bold"
+                    FontSize="13"/>
+
             <!-- Separador -->
             <Grid ColumnDefinitions="*,Auto,*" Margin="0,10">
                 <BoxView HeightRequest="1" Color="#E0E0E0" VerticalOptions="Center"/>

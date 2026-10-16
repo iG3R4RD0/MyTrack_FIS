@@ -9,6 +9,7 @@ namespace AppNueva.PostgreConect
 {
     internal class Procedimientos
     {
+        #region Inicio de sesión
         public static Usuario GetUserPas(string correo)
         {
             using (NpgsqlConnection conexion = Conexion.GetConnection())
@@ -17,7 +18,7 @@ namespace AppNueva.PostgreConect
                 cmd.Parameters.AddWithValue("@correo", correo);
 
                 NpgsqlDataReader reader = cmd.ExecuteReader();
-                if(reader.Read())
+                if (reader.Read())
                 {
                     Usuario usuario = new Usuario
                     {
@@ -38,7 +39,7 @@ namespace AppNueva.PostgreConect
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM sp_obtener_usuario_por_id(@id)", conexion);
                 cmd.Parameters.AddWithValue("@id", id);
-                
+
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
@@ -57,6 +58,52 @@ namespace AppNueva.PostgreConect
                 }
                 else
                     return null;
+            }
+        }
+
+        public static int InsertarUsuario(Usuario usuario)
+        {
+            using (NpgsqlConnection conexion = Conexion.GetConnection())
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM registar_cliente(@nombre, @telefono, @correo, @password)", conexion);
+                cmd.Parameters.AddWithValue("@nombre", usuario.Nombre);
+                cmd.Parameters.AddWithValue("@telefono", usuario.Telefono);
+                cmd.Parameters.AddWithValue("@correo", usuario.Correo);
+                cmd.Parameters.AddWithValue("@password", usuario.Password);
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    return reader.GetInt32(0); // Devuelve el ID del usuario insertado
+                }
+                else
+                {
+                    throw new Exception("Error al crear el usuario.");
+                }
+            }
+        }
+        #endregion
+
+        public static int RegistrarEquipo(Equipo equipo)
+        {
+            using (NpgsqlConnection conexion = Conexion.GetConnection())
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM registrar_equipo(@carga, @tipo, @uso, @nombre)", conexion);
+                cmd.Parameters.AddWithValue("@nombre", equipo.Nombre);
+                cmd.Parameters.AddWithValue("@tipo", equipo.Tipo);
+                cmd.Parameters.AddWithValue("@carga", equipo.Carga);
+                cmd.Parameters.AddWithValue("@uso", equipo.Uso);
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    return reader.GetInt32(0); // Devuelve el ID del equipo insertado
+                }
+                else
+                {
+                    throw new Exception("Error al registrar el equipo - Falla de conexión");
+                }
             }
         }
     }
